@@ -1,0 +1,10 @@
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\obj\Debug\DBConnection.csproj.AssemblyReference.cache
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\obj\Debug\DBConnection.Form1.resources
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\obj\Debug\DBConnection.Properties.Resources.resources
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\obj\Debug\DBConnection.csproj.GenerateResource.cache
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\obj\Debug\DBConnection.csproj.CoreCompileInputs.cache
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\bin\Debug\DBConnection.exe.config
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\bin\Debug\DBConnection.exe
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\bin\Debug\DBConnection.pdb
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\obj\Debug\DBConnection.exe
+D:\C#Labs\ADO.NET\DBConnection\DBConnection\obj\Debug\DBConnection.pdb

@@ -1,0 +1,10 @@
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\bin\Debug\DBCommand.exe.config
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\bin\Debug\DBCommand.exe
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\bin\Debug\DBCommand.pdb
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\obj\Debug\DBCommand.csproj.AssemblyReference.cache
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\obj\Debug\DBCommand.Form1.resources
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\obj\Debug\DBCommand.Properties.Resources.resources
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\obj\Debug\DBCommand.csproj.GenerateResource.cache
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\obj\Debug\DBCommand.csproj.CoreCompileInputs.cache
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\obj\Debug\DBCommand.exe
+D:\C#Labs\ADO.NET\DBCommand\DBCommand\obj\Debug\DBCommand.pdb
