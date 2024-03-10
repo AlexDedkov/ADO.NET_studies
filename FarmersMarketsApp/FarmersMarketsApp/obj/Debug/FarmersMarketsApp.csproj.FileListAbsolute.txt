@@ -1,0 +1,15 @@
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\bin\Debug\FarmersMarketsApp.exe.config
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\bin\Debug\FarmersMarketsApp.exe
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\bin\Debug\FarmersMarketsApp.pdb
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\bin\Debug\EntityFramework.dll
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\bin\Debug\EntityFramework.SqlServer.dll
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\bin\Debug\EntityFramework.xml
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\bin\Debug\EntityFramework.SqlServer.xml
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\obj\Debug\FarmersMarketsApp.csproj.AssemblyReference.cache
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\obj\Debug\FarmersMarketsApp.Form1.resources
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\obj\Debug\FarmersMarketsApp.Properties.Resources.resources
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\obj\Debug\FarmersMarketsApp.csproj.GenerateResource.cache
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\obj\Debug\FarmersMarketsApp.csproj.CoreCompileInputs.cache
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\obj\Debug\FarmersMarketsApp.csproj.CopyComplete
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\obj\Debug\FarmersMarketsApp.exe
+D:\C#Labs\ADO.NET\FarmersMarketsApp\FarmersMarketsApp\obj\Debug\FarmersMarketsApp.pdb

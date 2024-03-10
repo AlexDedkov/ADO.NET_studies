@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="farmersmarketsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="category_id" />
+    </Key>
+    <Property Name="category_id" Type="Int32" Nullable="false" />
+    <Property Name="category1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="markets_categories" Relationship="Self.markets_categories_categories_fk" FromRole="categories" ToRole="markets_categories" />
+  </EntityType>
+  <EntityType Name="city">
+    <Key>
+      <PropertyRef Name="city_id" />
+    </Key>
+    <Property Name="city_id" Type="Int32" Nullable="false" />
+    <Property Name="city1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="state_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="state" Relationship="Self.cities_states_fk" FromRole="cities" ToRole="states" />
+    <NavigationProperty Name="markets" Relationship="Self.markets_cities_fk" FromRole="cities" ToRole="markets" />
+  </EntityType>
+  <EntityType Name="market">
+    <Key>
+      <PropertyRef Name="market_id" />
+    </Key>
+    <Property Name="market_id" Type="Int32" Nullable="false" />
+    <Property Name="market_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="street" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="Int32" />
+    <Property Name="state" Type="Int32" />
+    <Property Name="zip" Type="Int32" />
+    <Property Name="lat" Type="Single" />
+    <Property Name="lon" Type="Single" />
+    <NavigationProperty Name="city1" Relationship="Self.markets_cities_fk" FromRole="markets" ToRole="cities" />
+    <NavigationProperty Name="markets_categories" Relationship="Self.markets_categories_markets_fk" FromRole="markets" ToRole="markets_categories" />
+    <NavigationProperty Name="state1" Relationship="Self.markets_states_fk" FromRole="markets" ToRole="states" />
+    <NavigationProperty Name="reviews" Relationship="Self.reviews_markets_fk" FromRole="markets" ToRole="reviews" />
+  </EntityType>
+  <EntityType Name="markets_categories">
+    <Key>
+      <PropertyRef Name="market_category_id" />
+    </Key>
+    <Property Name="market_category_id" Type="Int32" Nullable="false" />
+    <Property Name="market_id" Type="Int32" Nullable="false" />
+    <Property Name="category_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="category" Relationship="Self.markets_categories_categories_fk" FromRole="markets_categories" ToRole="categories" />
+    <NavigationProperty Name="market" Relationship="Self.markets_categories_markets_fk" FromRole="markets_categories" ToRole="markets" />
+  </EntityType>
+  <EntityType Name="review">
+    <Key>
+      <PropertyRef Name="review_id" />
+    </Key>
+    <Property Name="review_id" Type="Int32" Nullable="false" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="market_id" Type="Int32" Nullable="false" />
+    <Property Name="date_time" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="score" Type="Int16" Nullable="false" />
+    <Property Name="review1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="market" Relationship="Self.reviews_markets_fk" FromRole="reviews" ToRole="markets" />
+    <NavigationProperty Name="user" Relationship="Self.reviews_users_fk" FromRole="reviews" ToRole="users" />
+  </EntityType>
+  <EntityType Name="state">
+    <Key>
+      <PropertyRef Name="state_id" />
+    </Key>
+    <Property Name="state_id" Type="Int32" Nullable="false" />
+    <Property Name="state_full" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="state_abbr" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="cities" Relationship="Self.cities_states_fk" FromRole="states" ToRole="cities" />
+    <NavigationProperty Name="markets" Relationship="Self.markets_states_fk" FromRole="states" ToRole="markets" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="fname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="lname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password_hash" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="reviews" Relationship="Self.reviews_users_fk" FromRole="users" ToRole="reviews" />
+  </EntityType>
+  <Association Name="markets_categories_categories_fk">
+    <End Role="categories" Type="Self.category" Multiplicity="1" />
+    <End Role="markets_categories" Type="Self.markets_categories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="category_id" />
+      </Principal>
+      <Dependent Role="markets_categories">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cities_states_fk">
+    <End Role="states" Type="Self.state" Multiplicity="1" />
+    <End Role="cities" Type="Self.city" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="states">
+        <PropertyRef Name="state_id" />
+      </Principal>
+      <Dependent Role="cities">
+        <PropertyRef Name="state_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markets_cities_fk">
+    <End Role="cities" Type="Self.city" Multiplicity="0..1" />
+    <End Role="markets" Type="Self.market" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cities">
+        <PropertyRef Name="city_id" />
+      </Principal>
+      <Dependent Role="markets">
+        <PropertyRef Name="city" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markets_categories_markets_fk">
+    <End Role="markets" Type="Self.market" Multiplicity="1" />
+    <End Role="markets_categories" Type="Self.markets_categories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="markets">
+        <PropertyRef Name="market_id" />
+      </Principal>
+      <Dependent Role="markets_categories">
+        <PropertyRef Name="market_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markets_states_fk">
+    <End Role="states" Type="Self.state" Multiplicity="0..1" />
+    <End Role="markets" Type="Self.market" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="states">
+        <PropertyRef Name="state_id" />
+      </Principal>
+      <Dependent Role="markets">
+        <PropertyRef Name="state" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reviews_markets_fk">
+    <End Role="markets" Type="Self.market" Multiplicity="1" />
+    <End Role="reviews" Type="Self.review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="markets">
+        <PropertyRef Name="market_id" />
+      </Principal>
+      <Dependent Role="reviews">
+        <PropertyRef Name="market_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reviews_users_fk">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="reviews" Type="Self.review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="reviews">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="farmersmarketsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="cities" EntityType="Self.city" />
+    <EntitySet Name="markets" EntityType="Self.market" />
+    <EntitySet Name="markets_categories" EntityType="Self.markets_categories" />
+    <EntitySet Name="reviews" EntityType="Self.review" />
+    <EntitySet Name="states" EntityType="Self.state" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="markets_categories_categories_fk" Association="Self.markets_categories_categories_fk">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="markets_categories" EntitySet="markets_categories" />
+    </AssociationSet>
+    <AssociationSet Name="cities_states_fk" Association="Self.cities_states_fk">
+      <End Role="states" EntitySet="states" />
+      <End Role="cities" EntitySet="cities" />
+    </AssociationSet>
+    <AssociationSet Name="markets_cities_fk" Association="Self.markets_cities_fk">
+      <End Role="cities" EntitySet="cities" />
+      <End Role="markets" EntitySet="markets" />
+    </AssociationSet>
+    <AssociationSet Name="markets_categories_markets_fk" Association="Self.markets_categories_markets_fk">
+      <End Role="markets" EntitySet="markets" />
+      <End Role="markets_categories" EntitySet="markets_categories" />
+    </AssociationSet>
+    <AssociationSet Name="markets_states_fk" Association="Self.markets_states_fk">
+      <End Role="states" EntitySet="states" />
+      <End Role="markets" EntitySet="markets" />
+    </AssociationSet>
+    <AssociationSet Name="reviews_markets_fk" Association="Self.reviews_markets_fk">
+      <End Role="markets" EntitySet="markets" />
+      <End Role="reviews" EntitySet="reviews" />
+    </AssociationSet>
+    <AssociationSet Name="reviews_users_fk" Association="Self.reviews_users_fk">
+      <End Role="users" EntitySet="users" />
+      <End Role="reviews" EntitySet="reviews" />
+    </AssociationSet>
+    <FunctionImport Name="GetMarketData" ReturnType="Collection(farmersmarketsModel.GetMarketData_Result)" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(farmersmarketsModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(farmersmarketsModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="GetMarketData_Result">
+    <Property Type="Int32" Name="market_id" Nullable="false" />
+    <Property Type="String" Name="market_name" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="street" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="city" Nullable="true" />
+    <Property Type="Int32" Name="state" Nullable="true" />
+    <Property Type="Int32" Name="zip" Nullable="true" />
+    <Property Type="Single" Name="lat" Nullable="true" />
+    <Property Type="Single" Name="lon" Nullable="true" />
+    <Property Type="String" Name="market_category_name" Nullable="true" MaxLength="255" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

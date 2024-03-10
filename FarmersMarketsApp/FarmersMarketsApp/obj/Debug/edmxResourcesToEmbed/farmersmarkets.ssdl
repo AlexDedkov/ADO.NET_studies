@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="farmersmarketsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="categories">
+    <Key>
+      <PropertyRef Name="category_id" />
+    </Key>
+    <Property Name="category_id" Type="int" Nullable="false" />
+    <Property Name="category" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="cities">
+    <Key>
+      <PropertyRef Name="city_id" />
+    </Key>
+    <Property Name="city_id" Type="int" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="state_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="markets">
+    <Key>
+      <PropertyRef Name="market_id" />
+    </Key>
+    <Property Name="market_id" Type="int" Nullable="false" />
+    <Property Name="market_name" Type="varchar" MaxLength="255" />
+    <Property Name="street" Type="varchar" MaxLength="255" />
+    <Property Name="city" Type="int" />
+    <Property Name="state" Type="int" />
+    <Property Name="zip" Type="int" />
+    <Property Name="lat" Type="real" />
+    <Property Name="lon" Type="real" />
+  </EntityType>
+  <EntityType Name="markets_categories">
+    <Key>
+      <PropertyRef Name="market_category_id" />
+    </Key>
+    <Property Name="market_category_id" Type="int" Nullable="false" />
+    <Property Name="market_id" Type="int" Nullable="false" />
+    <Property Name="category_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="reviews">
+    <Key>
+      <PropertyRef Name="review_id" />
+    </Key>
+    <Property Name="review_id" Type="int" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="market_id" Type="int" Nullable="false" />
+    <Property Name="date_time" Type="date" Nullable="false" />
+    <Property Name="score" Type="smallint" Nullable="false" />
+    <Property Name="review" Type="text" />
+  </EntityType>
+  <EntityType Name="states">
+    <Key>
+      <PropertyRef Name="state_id" />
+    </Key>
+    <Property Name="state_id" Type="int" Nullable="false" />
+    <Property Name="state_full" Type="varchar" MaxLength="255" />
+    <Property Name="state_abbr" Type="char" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="fname" Type="varchar" MaxLength="255" />
+    <Property Name="lname" Type="varchar" MaxLength="255" />
+    <Property Name="username" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="password_hash" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <Association Name="cities_states_fk">
+    <End Role="states" Type="Self.states" Multiplicity="1" />
+    <End Role="cities" Type="Self.cities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="states">
+        <PropertyRef Name="state_id" />
+      </Principal>
+      <Dependent Role="cities">
+        <PropertyRef Name="state_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markets_categories_categories_fk">
+    <End Role="categories" Type="Self.categories" Multiplicity="1" />
+    <End Role="markets_categories" Type="Self.markets_categories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="category_id" />
+      </Principal>
+      <Dependent Role="markets_categories">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markets_categories_markets_fk">
+    <End Role="markets" Type="Self.markets" Multiplicity="1" />
+    <End Role="markets_categories" Type="Self.markets_categories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="markets">
+        <PropertyRef Name="market_id" />
+      </Principal>
+      <Dependent Role="markets_categories">
+        <PropertyRef Name="market_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markets_cities_fk">
+    <End Role="cities" Type="Self.cities" Multiplicity="0..1" />
+    <End Role="markets" Type="Self.markets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cities">
+        <PropertyRef Name="city_id" />
+      </Principal>
+      <Dependent Role="markets">
+        <PropertyRef Name="city" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markets_states_fk">
+    <End Role="states" Type="Self.states" Multiplicity="0..1" />
+    <End Role="markets" Type="Self.markets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="states">
+        <PropertyRef Name="state_id" />
+      </Principal>
+      <Dependent Role="markets">
+        <PropertyRef Name="state" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reviews_markets_fk">
+    <End Role="markets" Type="Self.markets" Multiplicity="1" />
+    <End Role="reviews" Type="Self.reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="markets">
+        <PropertyRef Name="market_id" />
+      </Principal>
+      <Dependent Role="reviews">
+        <PropertyRef Name="market_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reviews_users_fk">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="reviews" Type="Self.reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="reviews">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="GetMarketData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="farmersmarketsModelStoreContainer">
+    <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cities" EntityType="Self.cities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="markets" EntityType="Self.markets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="markets_categories" EntityType="Self.markets_categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="reviews" EntityType="Self.reviews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="states" EntityType="Self.states" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="cities_states_fk" Association="Self.cities_states_fk">
+      <End Role="states" EntitySet="states" />
+      <End Role="cities" EntitySet="cities" />
+    </AssociationSet>
+    <AssociationSet Name="markets_categories_categories_fk" Association="Self.markets_categories_categories_fk">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="markets_categories" EntitySet="markets_categories" />
+    </AssociationSet>
+    <AssociationSet Name="markets_categories_markets_fk" Association="Self.markets_categories_markets_fk">
+      <End Role="markets" EntitySet="markets" />
+      <End Role="markets_categories" EntitySet="markets_categories" />
+    </AssociationSet>
+    <AssociationSet Name="markets_cities_fk" Association="Self.markets_cities_fk">
+      <End Role="cities" EntitySet="cities" />
+      <End Role="markets" EntitySet="markets" />
+    </AssociationSet>
+    <AssociationSet Name="markets_states_fk" Association="Self.markets_states_fk">
+      <End Role="states" EntitySet="states" />
+      <End Role="markets" EntitySet="markets" />
+    </AssociationSet>
+    <AssociationSet Name="reviews_markets_fk" Association="Self.reviews_markets_fk">
+      <End Role="markets" EntitySet="markets" />
+      <End Role="reviews" EntitySet="reviews" />
+    </AssociationSet>
+    <AssociationSet Name="reviews_users_fk" Association="Self.reviews_users_fk">
+      <End Role="users" EntitySet="users" />
+      <End Role="reviews" EntitySet="reviews" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
