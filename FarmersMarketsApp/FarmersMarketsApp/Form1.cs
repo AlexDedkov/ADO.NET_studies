@@ -121,7 +121,9 @@ namespace FarmersMarketsApp
                         dbContext.categories.Add(newCategory);
                         break;
                     case "market":
-                        dbContext.markets.Add(new market());
+                        var newMarket = new market();
+                        newMarket.market_id = GenerateUniqueCategoryIdM();
+                        dbContext.markets.Add(newMarket);
                         break;
                     default:
                         MessageBox.Show("Invalid table name selected.");
@@ -146,6 +148,13 @@ namespace FarmersMarketsApp
             int maxCategoryId = dbContext.categories.Max(c => c.category_id);
             return maxCategoryId + 1;
         }
+
+        private int GenerateUniqueCategoryIdM()
+        {
+            int maxMarketId = dbContext.markets.Max(c => c.market_id);
+            return maxMarketId + 1;
+        }
+
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
